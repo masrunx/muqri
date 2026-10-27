@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مقرئ | أتقن حفظ القرآن الكريم وتلاوته أونلاين</title>
+<meta name="description" content="منصة مقرئ لتحفيظ القرآن الكريم وتجويده أونلاين مع معلمين مجازين. ٣ حصص مجانية أو استرداد ٨٠٪ عند الالتزام بالحضور الكامل.">
+<meta name="theme-color" content="#06100D">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2306100D'/%3E%3Crect x='16' y='16' width='32' height='32' fill='none' stroke='%23D9B15A' stroke-width='3'/%3E%3Crect x='16' y='16' width='32' height='32' fill='none' stroke='%23D9B15A' stroke-width='3' transform='rotate(45 32 32)'/%3E%3Ccircle cx='32' cy='32' r='8' fill='%2314D694'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@500;700;800;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: {
+      ink: '#06100D', ink2: '#0B1B16', ink3: '#112820',
+      emerald: { DEFAULT: '#14D694', deep: '#0E7A57' },
+      gold: { DEFAULT: '#D9B15A', light: '#F0D58F' }
+    },
+    fontFamily: { display: ['Cairo','sans-serif'], body: ['Tajawal','sans-serif'], quran: ['Amiri','serif'] }
+  } }
+}
+</script>
+<style>
+  html.js .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+  html.js .reveal.in{opacity:1;transform:none}
+  body{background:#06100D;color:#fff;font-family:'Tajawal',sans-serif;-webkit-tap-highlight-color:transparent}
+  .pattern{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90' viewBox='0 0 90 90'%3E%3Cg fill='none' stroke='%23D9B15A' stroke-opacity='.09' stroke-width='1'%3E%3Crect x='25' y='25' width='40' height='40'/%3E%3Crect x='25' y='25' width='40' height='40' transform='rotate(45 45 45)'/%3E%3C/g%3E%3C/svg%3E")}
+  .glass{background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.09);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+  .gold-text{background:linear-gradient(100deg,#F0D58F,#D9B15A 55%,#B88A2E);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:52px;padding:0 1.6rem;border-radius:999px;font-family:'Cairo';font-weight:800;transition:transform .25s,box-shadow .25s,background .25s;cursor:pointer;border:0;position:relative;overflow:hidden}
+  .btn:active{transform:scale(.97)}
+  .btn-primary{background:linear-gradient(135deg,#14D694,#0FB57C);color:#04140E;box-shadow:0 10px 30px -8px rgba(20,214,148,.55)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 38px -8px rgba(20,214,148,.7)}
+  .btn-primary::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.45) 50%,transparent 70%);transform:translateX(120%);transition:transform .8s}
+  .btn-primary:hover::after{transform:translateX(-120%)}
+  .btn-gold{background:linear-gradient(135deg,#F0D58F,#D9B15A);color:#1c1405;box-shadow:0 10px 30px -8px rgba(217,177,90,.5)}
+  .btn-gold:hover{transform:translateY(-2px)}
+  .btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.22)}
+  .btn-ghost:hover{border-color:#D9B15A;color:#F0D58F}
+  .field{width:100%;min-height:52px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);padding:0 1rem;color:#fff;font-size:16px;font-family:'Tajawal';transition:border-color .2s,box-shadow .2s,background .2s}
+  .field:focus{outline:0;border-color:#14D694;box-shadow:0 0 0 4px rgba(20,214,148,.16);background:rgba(255,255,255,.08)}
+  .field[aria-invalid="true"]{border-color:#ff6b6b;box-shadow:0 0 0 4px rgba(255,107,107,.14)}
+  select.field option{background:#0B1B16;color:#fff}
+  .lbl{display:block;margin-bottom:.4rem;font-size:.85rem;font-weight:700;color:#cfe3da}
+  .err{color:#ff8f8f;font-size:.78rem;margin-top:.3rem;min-height:1em}
+  .choice input{position:absolute;opacity:0;pointer-events:none}
+  .choice span{display:flex;align-items:center;justify-content:center;gap:.4rem;min-height:52px;padding:0 .8rem;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);cursor:pointer;font-weight:700;text-align:center;transition:all .2s;font-size:.92rem}
+  .choice input:checked+span{border-color:#14D694;background:rgba(20,214,148,.12);color:#14D694}
+  .choice input:focus-visible+span{box-shadow:0 0 0 4px rgba(20,214,148,.2)}
+  .offer{transition:transform .4s cubic-bezier(.22,1,.36,1),box-shadow .4s}
+  .offer:hover{transform:translateY(-8px)}
+  .faq-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.22,1,.36,1)}
+  .faq-body>div{overflow:hidden}
+  .faq-item[data-open="true"] .faq-body{grid-template-rows:1fr}
+  .faq-item[data-open="true"] .plus{transform:rotate(45deg);background:#14D694;color:#04140E}
+  .plus{transition:transform .3s,background .3s}
+  @keyframes spin-slow{to{transform:rotate(360deg)}}
+  @keyframes float{50%{transform:translateY(-12px)}}
+  @keyframes pop{0%{transform:scale(.4);opacity:0}70%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .spin-slow{animation:spin-slow 60s linear infinite}
+  .float{animation:float 6s ease-in-out infinite}
+  dialog{border:0;padding:0;background:transparent;max-width:none;max-height:none;width:100%;height:100%;margin:0;color:#fff}
+  dialog::backdrop{background:rgba(2,8,6,.78);backdrop-filter:blur(6px)}
+  dialog[open] .sheet{animation:sheet .45s cubic-bezier(.22,1,.36,1)}
+  @keyframes sheet{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+  .spinner{width:20px;height:20px;border-radius:50%;border:3px solid rgba(4,20,14,.25);border-top-color:#04140E;animation:spin-slow .7s linear infinite}
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html.js .reveal{opacity:1;transform:none}}
+  .safe-b{padding-bottom:max(.75rem,env(safe-area-inset-bottom))}
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body class="antialiased overflow-x-hidden">
+
+<!-- Logo symbol -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gold-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F0D58F"/><stop offset=".6" stop-color="#D9B15A"/><stop offset="1" stop-color="#B88A2E"/></linearGradient>
+    <linearGradient id="em-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2CF0AC"/><stop offset="1" stop-color="#0FB57C"/></linearGradient>
+    <symbol id="logo-mark" viewBox="0 0 64 64">
+      <g fill="none" stroke="url(#gold-g)" stroke-width="2.4" stroke-linejoin="round">
+        <rect x="14" y="14" width="36" height="36" rx="2.5"/>
+        <rect x="14" y="14" width="36" height="36" rx="2.5" transform="rotate(45 32 32)"/>
+      </g>
+      <circle cx="32" cy="32" r="12.5" fill="url(#em-g)"/>
+      <path d="M32 40.5V28.5M32 28.5c-3-2.4-6.6-2.8-9.6-1.8v11.6c3-1 6.6-.6 9.6 1.8 3-2.4 6.6-2.8 9.6-1.8V26.7c-3-1-6.6-.6-9.6 1.8z" fill="none" stroke="#04140E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- NAV -->
+<header id="nav" class="fixed top-0 inset-x-0 z-40 transition-all duration-300">
+  <div class="max-w-6xl mx-auto px-4 h-16 md:h-20 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-2.5" aria-label="مقرئ - الرئيسية">
+      <svg class="w-10 h-10 md:w-11 md:h-11"><use href="#logo-mark"/></svg>
+      <span class="font-display font-black text-2xl md:text-3xl gold-text leading-none">مقرئ</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-sm font-bold text-white/80" aria-label="التنقل الرئيسي">
+      <a class="hover:text-gold transition" href="#offers">العروض</a>
+      <a class="hover:text-gold transition" href="#journey">رحلتك</a>
+      <a class="hover:text-gold transition" href="#programs">البرامج</a>
+      <a class="hover:text-gold transition" href="#teachers">المعلمون</a>
+      <a class="hover:text-gold transition" href="#faq">الأسئلة</a>
+    </nav>
+    <button class="btn btn-primary !min-h-[44px] !px-5 text-sm" data-open-booking>احجز حصتك المجانية</button>
+  </div>
+</header>
+
+<main id="top">
+<!-- HERO -->
+<section class="relative min-h-[100svh] flex items-center pt-24 pb-16 pattern overflow-hidden">
+  <div class="absolute -top-40 -start-40 w-[520px] h-[520px] rounded-full bg-emerald/20 blur-[120px]"></div>
+  <div class="absolute bottom-0 -end-40 w-[480px] h-[480px] rounded-full bg-gold/10 blur-[120px]"></div>
+  <div class="relative max-w-6xl mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center">
+    <div class="reveal">
+      <span class="inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-xs md:text-sm font-bold text-gold-light">
+        <span class="w-2 h-2 rounded-full bg-emerald animate-pulse"></span> حصص مباشرة مع معلمين مجازين
+      </span>
+      <h1 class="font-display font-black text-[2.35rem] leading-[1.25] md:text-6xl md:leading-[1.2] mt-6">
+        أتقن كتاب الله <br><span class="gold-text">بإشراف مقرئ مجاز</span><br>وأنت في بيتك
+      </h1>
+      <p class="mt-6 text-lg md:text-xl text-white/75 max-w-xl leading-relaxed">
+        رحلة حفظ وتلاوة منظّمة للكبار والصغار، بخطة شخصية ومتابعة دقيقة. جرّب بنفسك: <b class="text-white">٣ حصص مجانية</b>، أو التزم بالحضور واسترد <b class="text-emerald">٨٠٪</b> من قيمة اشتراكك.
+      </p>
+      <div class="mt-8 flex flex-col sm:flex-row gap-3">
+        <button class="btn btn-primary text-lg" data-open-booking>ابدأ الآن مجاناً
+          <svg class="w-5 h-5 rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+        <a href="#offers" class="btn btn-ghost">شاهد العرضين</a>
+      </div>
+      <ul class="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-sm text-white/70" aria-label="مميزات">
+        <li class="flex items-center gap-2"><svg class="w-5 h-5 text-emerald" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>بدون بطاقة لبدء التجربة</li>
+        <li class="flex items-center gap-2"><svg class="w-5 h-5 text-emerald" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>مواعيد مرنة حسب توقيتك</li>
+        <li class="flex items-center gap-2"><svg class="w-5 h-5 text-emerald" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>تقرير متابعة لولي الأمر</li>
+      </ul>
+      <div id="rating-badge" class="hidden mt-6 items-center gap-2 text-sm text-white/80"></div>
+    </div>
+
+    <div class="reveal relative flex justify-center" aria-hidden="true">
+      <div class="relative w-[300px] h-[300px] sm:w-[420px] sm:h-[420px]">
+        <svg class="absolute inset-0 w-full h-full spin-slow" viewBox="0 0 200 200" fill="none" stroke="url(#gold-g)" stroke-width=".6">
+          <rect x="30" y="30" width="140" height="140"/><rect x="30" y="30" width="140" height="140" transform="rotate(45 100 100)"/>
+          <rect x="45" y="45" width="110" height="110" opacity=".6"/><rect x="45" y="45" width="110" height="110" transform="rotate(45 100 100)" opacity=".6"/>
+          <circle cx="100" cy="100" r="92" opacity=".5"/>
+        </svg>
+        <div class="absolute inset-[18%] rounded-full glass float flex flex-col items-center justify-center text-center p-6 shadow-[0_0_80px_-10px_rgba(20,214,148,.35)]">
+          <svg class="w-14 h-14 mb-3"><use href="#logo-mark"/></svg>
+          <p class="font-quran text-2xl sm:text-3xl gold-text leading-loose">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<section class="border-y border-white/10 bg-ink2/60" aria-label="الثقة والدفع">
+  <div class="max-w-6xl mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between gap-5">
+    <p class="text-sm font-bold text-white/60">طرق دفع آمنة ومألوفة في المملكة</p>
+    <ul class="flex flex-wrap justify-center gap-3" id="pay-badges">
+      <li class="glass rounded-xl px-4 py-2 font-display font-extrabold text-sm tracking-wide">mada</li>
+      <li class="glass rounded-xl px-4 py-2 font-display font-extrabold text-sm flex items-center gap-1.5">Apple Pay</li>
+      <li class="glass rounded-xl px-4 py-2 font-display font-extrabold text-sm">Tabby</li>
+      <li class="glass rounded-xl px-4 py-2 font-display font-extrabold text-sm">Tamara</li>
+      <li class="glass rounded-xl px-4 py-2 font-display font-extrabold text-sm">Visa / Mastercard</li>
+    </ul>
+    <p class="text-sm text-white/60 flex items-center gap-2"><svg class="w-5 h-5 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>بياناتك مشفّرة ولا تُشارك</p>
+  </div>
+</section>
+
+<!-- OFFERS -->
+<section id="offers" class="relative py-20 md:py-28 pattern">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="text-gold font-bold">عرض الانطلاقة</p>
+      <h2 class="font-display font-black text-3xl md:text-5xl mt-3">اختر الطريقة التي تناسبك <span class="gold-text">للبدء</span></h2>
+      <p class="mt-4 text-white/70 text-lg">عرضان واضحان بلا مفاجآت. جرّب أولاً، أو التزم واسترد.</p>
+    </div>
+
+    <div class="mt-14 grid md:grid-cols-2 gap-6 lg:gap-8 items-stretch">
+      <!-- A -->
+      <article class="offer reveal glass rounded-[28px] p-7 md:p-9 relative overflow-hidden border-gold/30">
+        <div class="absolute -top-16 -end-16 w-56 h-56 rounded-full bg-gold/15 blur-3xl"></div>
+        <span class="relative inline-block rounded-full bg-gold/15 text-gold-light text-xs font-extrabold px-3 py-1.5">العرض الأول · التجربة أولاً</span>
+        <div class="relative flex items-end gap-4 mt-6">
+          <span class="font-display font-black text-[6.5rem] leading-[.85] gold-text">٣</span>
+          <div class="pb-2"><p class="font-display font-black text-3xl">حصص مجانية</p><p class="text-white/60">بدون التزام ولا رسوم</p></div>
+        </div>
+        <ul class="relative mt-7 space-y-3 text-white/85">
+          <li class="flex gap-3"><i class="mt-1.5 w-2 h-2 rounded-full bg-gold shrink-0"></i>تقييم مستواك ووضع خطة حفظ شخصية</li>
+          <li class="flex gap-3"><i class="mt-1.5 w-2 h-2 rounded-full bg-gold shrink-0"></i>تعرّف على المعلم ومنهجه قبل أي قرار</li>
+          <li class="flex gap-3"><i class="mt-1.5 w-2 h-2 rounded-full bg-gold shrink-0"></i>اشترك بعدها فقط إن أعجبتك التجربة</li>
+        </ul>
+        <button class="btn btn-gold w-full mt-8 relative" data-open-booking data-offer="free">احجز حصصك الثلاث المجانية</button>
+      </article>
+
+      <!-- B -->
+      <article class="offer reveal glass rounded-[28px] p-7 md:p-9 relative overflow-hidden border-emerald/40 shadow-[0_30px_80px_-30px_rgba(20,214,148,.45)]" style="border-color:rgba(20,214,148,.4)">
+        <div class="absolute -top-16 -end-16 w-56 h-56 rounded-full bg-emerald/20 blur-3xl"></div>
+        <span class="absolute top-0 start-8 bg-emerald text-ink text-xs font-black px-4 py-2 rounded-b-xl">الأكثر التزاماً</span>
+        <span class="relative inline-block rounded-full bg-emerald/15 text-emerald text-xs font-extrabold px-3 py-1.5 mt-6">العرض الثاني · ضمان الاسترداد</span>
+        <div class="relative flex items-end gap-3 mt-6">
+          <span class="font-display font-black text-[6.5rem] leading-[.85] text-emerald">٨٠<small class="text-5xl">٪</small></span>
+          <div class="pb-2"><p class="font-display font-black text-3xl">كاش باك</p><p class="text-white/60">عند حضور ١٠٠٪ بلا غياب</p></div>
+        </div>
+        <ul class="relative mt-7 space-y-3 text-white/85">
+          <li class="flex gap-3"><i class="mt-1.5 w-2 h-2 rounded-full bg-emerald shrink-0"></i>التزم بجميع حصصك دون أي غياب</li>
+          <li class="flex gap-3"><i class="mt-1.5 w-2 h-2 rounded-full bg-emerald shrink-0"></i>استرد ٨٠٪ من قيمة اشتراكك نقداً</li>
+          <li class="flex gap-3"><i class="mt-1.5 w-2 h-2 rounded-full bg-emerald shrink-0"></i>نكافئ التزامك، فالحفظ يحتاج انتظاماً</li>
+        </ul>
+        <button class="btn btn-primary w-full mt-8 relative" data-open-booking data-offer="cashback">فعّل ضمان الـ٨٠٪</button>
+      </article>
+    </div>
+    <p class="text-center text-white/50 text-sm mt-8 reveal">يمكنك اختيار أحد العرضين عند الحجز، وسيؤكد لك فريقنا التفاصيل عبر واتساب.</p>
+  </div>
+</section>
+
+<!-- JOURNEY -->
+<section id="journey" class="py-20 md:py-28 bg-ink2/70">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="text-gold font-bold">رحلة الطالب</p>
+      <h2 class="font-display font-black text-3xl md:text-5xl mt-3">من الحجز إلى الإتقان في <span class="gold-text">٣ خطوات</span></h2>
+    </div>
+    <ol class="mt-14 grid md:grid-cols-3 gap-6">
+      <li class="reveal glass rounded-3xl p-7 relative">
+        <span class="font-display font-black text-6xl gold-text opacity-90">١</span>
+        <h3 class="font-display font-extrabold text-xl mt-3">احجز في دقيقة</h3>
+        <p class="mt-2 text-white/70 leading-relaxed">املأ النموذج القصير واختر الوقت المناسب لك، ونحن نتواصل معك عبر واتساب لتأكيد الموعد.</p>
+      </li>
+      <li class="reveal glass rounded-3xl p-7 relative" style="transition-delay:.12s">
+        <span class="font-display font-black text-6xl gold-text opacity-90">٢</span>
+        <h3 class="font-display font-extrabold text-xl mt-3">قيّم مستواك وابدأ</h3>
+        <p class="mt-2 text-white/70 leading-relaxed">يستمع المعلم لتلاوتك ويحدد نقطة البداية، ثم يضع لك خطة حفظ ومراجعة واضحة.</p>
+      </li>
+      <li class="reveal glass rounded-3xl p-7 relative" style="transition-delay:.24s">
+        <span class="font-display font-black text-6xl gold-text opacity-90">٣</span>
+        <h3 class="font-display font-extrabold text-xl mt-3">تقدّم بمتابعة مستمرة</h3>
+        <p class="mt-2 text-white/70 leading-relaxed">حصص منتظمة وتقييم دوري، ويصل ولي الأمر تقرير بما تم حفظه ومراجعته.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section id="programs" class="py-20 md:py-28 pattern">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="text-gold font-bold">البرامج</p>
+      <h2 class="font-display font-black text-3xl md:text-5xl mt-3">مسار لكل <span class="gold-text">مستوى وعمر</span></h2>
+    </div>
+    <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <article class="reveal glass rounded-3xl p-6 hover:-translate-y-2 hover:border-emerald/50 transition duration-300">
+        <div class="w-12 h-12 rounded-2xl bg-emerald/15 text-emerald grid place-items-center"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2zM4 19V5"/></svg></div>
+        <h3 class="font-display font-extrabold text-lg mt-4">الحفظ الجديد</h3>
+        <p class="text-white/65 text-sm mt-2 leading-relaxed">حفظ متدرج بخطة يومية وأسبوعية تناسب وقتك وقدرتك.</p>
+      </article>
+      <article class="reveal glass rounded-3xl p-6 hover:-translate-y-2 hover:border-emerald/50 transition duration-300" style="transition-delay:.08s">
+        <div class="w-12 h-12 rounded-2xl bg-gold/15 text-gold grid place-items-center"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0115-6.7L21 8M21 3v5h-5M21 12a9 9 0 01-15 6.7L3 16M3 21v-5h5"/></svg></div>
+        <h3 class="font-display font-extrabold text-lg mt-4">المراجعة والتثبيت</h3>
+        <p class="text-white/65 text-sm mt-2 leading-relaxed">لمن حفظ سابقاً ويريد تثبيت محفوظه وإتقانه.</p>
+      </article>
+      <article class="reveal glass rounded-3xl p-6 hover:-translate-y-2 hover:border-emerald/50 transition duration-300" style="transition-delay:.16s">
+        <div class="w-12 h-12 rounded-2xl bg-emerald/15 text-emerald grid place-items-center"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a3 3 0 00-3 3v6a3 3 0 006 0V6a3 3 0 00-3-3zM19 11a7 7 0 01-14 0M12 18v3"/></svg></div>
+        <h3 class="font-display font-extrabold text-lg mt-4">التجويد والتلاوة</h3>
+        <p class="text-white/65 text-sm mt-2 leading-relaxed">تصحيح المخارج والأحكام وتحسين الأداء على يد مقرئ.</p>
+      </article>
+      <article class="reveal glass rounded-3xl p-6 hover:-translate-y-2 hover:border-emerald/50 transition duration-300" style="transition-delay:.24s">
+        <div class="w-12 h-12 rounded-2xl bg-gold/15 text-gold grid place-items-center"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0116 0"/></svg></div>
+        <h3 class="font-display font-extrabold text-lg mt-4">تأسيس الأطفال</h3>
+        <p class="text-white/65 text-sm mt-2 leading-relaxed">أسلوب محبّب وتدرج لطيف مع متابعة منتظمة لولي الأمر.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- TEACHERS -->
+<section id="teachers" class="py-20 md:py-28 bg-ink2/70">
+  <div class="max-w-6xl mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center">
+    <div class="reveal">
+      <p class="text-gold font-bold">الاعتماد والجودة</p>
+      <h2 class="font-display font-black text-3xl md:text-5xl mt-3 leading-tight">معلمون <span class="gold-text">مجازون</span> بمعايير واضحة</h2>
+      <p class="mt-5 text-white/70 text-lg leading-relaxed">نحرص على أن يكون كل من يقرئ على منصة مقرئ أهلاً لهذه الأمانة. هذه المعايير التي نشترطها قبل انضمام أي معلم:</p>
+    </div>
+    <ul class="grid gap-4">
+      <li class="reveal glass rounded-2xl p-5 flex gap-4"><span class="w-11 h-11 shrink-0 rounded-xl bg-gold/15 text-gold grid place-items-center font-display font-black">١</span><div><h3 class="font-display font-extrabold">إجازة في القرآن الكريم</h3><p class="text-white/65 text-sm mt-1">إجازة بسند متصل في رواية القراءة التي يدرّسها.</p></div></li>
+      <li class="reveal glass rounded-2xl p-5 flex gap-4" style="transition-delay:.1s"><span class="w-11 h-11 shrink-0 rounded-xl bg-gold/15 text-gold grid place-items-center font-display font-black">٢</span><div><h3 class="font-display font-extrabold">اختبار تلاوة وتجويد</h3><p class="text-white/65 text-sm mt-1">اختبار شفهي يتحقق من الإتقان قبل قبول المعلم.</p></div></li>
+      <li class="reveal glass rounded-2xl p-5 flex gap-4" style="transition-delay:.2s"><span class="w-11 h-11 shrink-0 rounded-xl bg-gold/15 text-gold grid place-items-center font-display font-black">٣</span><div><h3 class="font-display font-extrabold">مهارة التدريس والتعامل</h3><p class="text-white/65 text-sm mt-1">مقابلة لقياس أسلوبه مع الكبار والأطفال وصبره في التعليم.</p></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- PARENTS -->
+<section class="py-20 md:py-24 pattern">
+  <div class="max-w-4xl mx-auto px-4 reveal">
+    <div class="glass rounded-[32px] p-8 md:p-12 text-center relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-br from-emerald/10 via-transparent to-gold/10"></div>
+      <h2 class="relative font-display font-black text-3xl md:text-4xl">ولي الأمر <span class="gold-text">على اطلاع دائم</span></h2>
+      <p class="relative mt-4 text-white/75 text-lg max-w-2xl mx-auto leading-relaxed">بعد الحصص يصلك ما تم حفظه ومراجعته ونقاط التحسين، لتتابع تقدم ابنك أو ابنتك خطوة بخطوة دون أن تفوتك التفاصيل.</p>
+      <button class="btn btn-primary mt-8 relative" data-open-booking data-student="child">احجز لابني أو ابنتي</button>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="py-20 md:py-28 bg-ink2/70">
+  <div class="max-w-3xl mx-auto px-4">
+    <div class="text-center reveal">
+      <p class="text-gold font-bold">أسئلة شائعة</p>
+      <h2 class="font-display font-black text-3xl md:text-5xl mt-3">كل ما تحتاج معرفته <span class="gold-text">قبل البدء</span></h2>
+    </div>
+    <div class="mt-12 space-y-3" id="faq-list">
+      <div class="faq-item glass rounded-2xl reveal" data-open="false">
+        <button class="w-full flex items-center justify-between gap-4 p-5 text-start min-h-[64px]" aria-expanded="false">
+          <span class="font-display font-extrabold text-base md:text-lg">أنا مغترب، هل تناسبني المواعيد؟</span>
+          <span class="plus shrink-0 w-9 h-9 rounded-full bg-white/10 grid place-items-center text-xl font-bold" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-body"><div><p class="px-5 pb-5 text-white/70 leading-relaxed">نعم. نكتشف منطقتك الزمنية تلقائياً في النموذج، وتختار الفترة التي تناسبك، فيحدد الفريق موعداً مناسباً بتوقيت بلدك أينما كنت.</p></div></div>
+      </div>
+      <div class="faq-item glass rounded-2xl reveal" data-open="false">
+        <button class="w-full flex items-center justify-between gap-4 p-5 text-start min-h-[64px]" aria-expanded="false">
+          <span class="font-display font-extrabold text-base md:text-lg">كيف أتابع تقدم ابني أو ابنتي؟</span>
+          <span class="plus shrink-0 w-9 h-9 rounded-full bg-white/10 grid place-items-center text-xl font-bold" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-body"><div><p class="px-5 pb-5 text-white/70 leading-relaxed">يصل ولي الأمر تقرير بعد الحصص يوضح ما تم حفظه ومراجعته وملاحظات المعلم وخطة الحصة القادمة، ويمكنك التواصل مع الفريق في أي وقت.</p></div></div>
+      </div>
+      <div class="faq-item glass rounded-2xl reveal" data-open="false">
+        <button class="w-full flex items-center justify-between gap-4 p-5 text-start min-h-[64px]" aria-expanded="false">
+          <span class="font-display font-extrabold text-base md:text-lg">كيف يعمل استرداد الـ٨٠٪؟</span>
+          <span class="plus shrink-0 w-9 h-9 rounded-full bg-white/10 grid place-items-center text-xl font-bold" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-body"><div><p class="px-5 pb-5 text-white/70 leading-relaxed">إذا حضرت جميع حصص اشتراكك بنسبة ١٠٠٪ ودون أي غياب، تسترد ٨٠٪ من قيمة الاشتراك. يشرح لك الفريق شروط العرض كاملة قبل الدفع، ولا يُطلب منك أي مبلغ قبل التأكيد.</p></div></div>
+      </div>
+      <div class="faq-item glass rounded-2xl reveal" data-open="false">
+        <button class="w-full flex items-center justify-between gap-4 p-5 text-start min-h-[64px]" aria-expanded="false">
+          <span class="font-display font-extrabold text-base md:text-lg">هل الحصص التجريبية مجانية فعلاً؟</span>
+          <span class="plus shrink-0 w-9 h-9 rounded-full bg-white/10 grid place-items-center text-xl font-bold" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-body"><div><p class="px-5 pb-5 text-white/70 leading-relaxed">نعم، ٣ حصص مجانية بلا بطاقة ولا التزام، تتعرف فيها على المعلم والمنهج ثم تقرر.</p></div></div>
+      </div>
+      <div class="faq-item glass rounded-2xl reveal" data-open="false">
+        <button class="w-full flex items-center justify-between gap-4 p-5 text-start min-h-[64px]" aria-expanded="false">
+          <span class="font-display font-extrabold text-base md:text-lg">ما طرق الدفع المتاحة؟</span>
+          <span class="plus shrink-0 w-9 h-9 rounded-full bg-white/10 grid place-items-center text-xl font-bold" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-body"><div><p class="px-5 pb-5 text-white/70 leading-relaxed">مدى، Apple Pay، البطاقات الائتمانية، والتقسيط عبر تابي وتمارا. يؤكد لك الفريق الطرق المتاحة عند الاشتراك.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="py-20 md:py-28 pattern relative overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-t from-emerald/10 to-transparent"></div>
+  <div class="relative max-w-3xl mx-auto px-4 text-center reveal">
+    <svg class="w-20 h-20 mx-auto"><use href="#logo-mark"/></svg>
+    <h2 class="font-display font-black text-3xl md:text-5xl mt-6 leading-tight">ابدأ اليوم، وخطوتك الأولى <span class="gold-text">مجانية</span></h2>
+    <p class="mt-4 text-white/70 text-lg">احجز حصتك التجريبية الآن وسنتواصل معك لتأكيد الموعد.</p>
+    <button class="btn btn-primary text-lg mt-8" data-open-booking>احجز الآن</button>
+  </div>
+</section>
+</main>
+
+<footer class="border-t border-white/10 bg-ink2 pb-28 md:pb-0">
+  <div class="max-w-6xl mx-auto px-4 py-10 flex flex-col md:flex-row items-center justify-between gap-5 text-sm text-white/55">
+    <a href="#top" class="flex items-center gap-2.5"><svg class="w-9 h-9"><use href="#logo-mark"/></svg><span class="font-display font-black text-xl gold-text">مقرئ</span></a>
+    <p>© <span id="year"></span> مقرئ. جميع الحقوق محفوظة.</p>
+  </div>
+</footer>
+
+<!-- Mobile sticky CTA -->
+<div id="sticky-cta" class="md:hidden fixed bottom-0 inset-x-0 z-30 px-4 pt-3 safe-b bg-gradient-to-t from-ink via-ink/95 to-transparent translate-y-full transition-transform duration-300">
+  <button class="btn btn-primary w-full" data-open-booking>احجز ٣ حصص مجانية</button>
+</div>
+
+<!-- BOOKING DIALOG -->
+<dialog id="booking" aria-labelledby="booking-title">
+  <div class="min-h-full flex items-end sm:items-center justify-center sm:p-6" id="booking-wrap">
+    <div class="sheet glass w-full sm:max-w-xl max-h-[94svh] overflow-y-auto rounded-t-[28px] sm:rounded-[28px] p-6 sm:p-8" style="background:linear-gradient(160deg,#0f241c,#08140f)">
+      <div class="flex items-center justify-between mb-5">
+        <div class="flex items-center gap-2.5"><svg class="w-9 h-9"><use href="#logo-mark"/></svg><span class="font-display font-black text-xl gold-text">مقرئ</span></div>
+        <button type="button" id="booking-close" class="w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 grid place-items-center transition" aria-label="إغلاق">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+
+      <form id="booking-form" novalidate>
+        <h2 id="booking-title" class="font-display font-black text-2xl sm:text-3xl">احجز حصتك التجريبية</h2>
+        <p class="text-white/65 mt-1 mb-6">دقيقة واحدة، وسنتواصل معك عبر واتساب لتأكيد الموعد.</p>
+
+        <fieldset class="mb-5">
+          <legend class="lbl">اختر عرضك</legend>
+          <div class="grid grid-cols-2 gap-3">
+            <label class="choice"><input type="radio" name="offer" value="3 حصص مجانية" checked><span>٣ حصص مجانية</span></label>
+            <label class="choice"><input type="radio" name="offer" value="كاش باك 80%"><span>كاش باك ٨٠٪</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="mb-5">
+          <legend class="lbl">التسجيل لـ</legend>
+          <div class="grid grid-cols-2 gap-3">
+            <label class="choice"><input type="radio" name="student" value="نفسي" checked><span>لنفسي</span></label>
+            <label class="choice"><input type="radio" name="student" value="طفل"><span>لابني / ابنتي</span></label>
+          </div>
+        </fieldset>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="sm:col-span-2">
+            <label class="lbl" for="f-name">الاسم الكامل</label>
+            <input class="field" id="f-name" name="name" type="text" autocomplete="name" maxlength="80" required>
+            <p class="err" data-err="name"></p>
+          </div>
+          <div>
+            <label class="lbl" for="f-phone">رقم الجوال (واتساب)</label>
+            <input class="field" id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" style="text-align:right" placeholder="05xxxxxxxx" required>
+            <p class="err" data-err="phone"></p>
+          </div>
+          <div id="age-wrap" class="hidden">
+            <label class="lbl" for="f-age">عمر الطالب</label>
+            <input class="field" id="f-age" name="age" type="number" inputmode="numeric" min="4" max="18" placeholder="مثال: ٩">
+            <p class="err" data-err="age"></p>
+          </div>
+          <div>
+            <label class="lbl" for="f-program">البرنامج</label>
+            <select class="field" id="f-program" name="program" required>
+              <option value="الحفظ الجديد">الحفظ الجديد</option>
+              <option value="المراجعة والتثبيت">المراجعة والتثبيت</option>
+              <option value="التجويد والتلاوة">التجويد والتلاوة</option>
+              <option value="تأسيس الأطفال">تأسيس الأطفال</option>
+            </select>
+          </div>
+          <div>
+            <label class="lbl" for="f-time">الفترة المناسبة</label>
+            <select class="field" id="f-time" name="time" required>
+              <option value="صباحاً">صباحاً</option>
+              <option value="ظهراً">ظهراً</option>
+              <option value="عصراً">عصراً</option>
+              <option value="مساءً" selected>مساءً</option>
+              <option value="ليلاً">ليلاً</option>
+            </select>
+          </div>
+          <div class="sm:col-span-2">
+            <label class="lbl" for="f-tz">منطقتك الزمنية</label>
+            <input class="field" id="f-tz" name="tz" type="text" readonly dir="ltr" style="text-align:right">
+          </div>
+        </div>
+
+        <input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
+
+        <label class="flex items-start gap-3 mt-5 cursor-pointer text-sm text-white/70">
+          <input type="checkbox" id="f-consent" name="consent" class="mt-1 w-5 h-5 accent-emerald shrink-0" required>
+          <span>أوافق على التواصل معي عبر واتساب بخصوص هذا الطلب.</span>
+        </label>
+        <p class="err" data-err="consent"></p>
+
+        <p id="form-error" class="hidden mt-4 rounded-xl bg-red-500/10 border border-red-400/30 text-red-200 text-sm p-3" role="alert"></p>
+
+        <button type="submit" id="submit-btn" class="btn btn-primary w-full mt-6 text-lg">
+          <span id="submit-label">أرسل طلب الحجز</span>
+          <span id="submit-spin" class="spinner hidden"></span>
+        </button>
+      </form>
+
+      <div id="success" class="hidden text-center py-6" role="status" aria-live="polite">
+        <svg class="w-24 h-24 mx-auto" viewBox="0 0 96 96" fill="none" style="animation:pop .6s cubic-bezier(.22,1,.36,1) both">
+          <circle cx="48" cy="48" r="44" stroke="#14D694" stroke-width="3" fill="rgba(20,214,148,.12)"/>
+          <path d="M30 49l13 13 24-27" stroke="#14D694" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="70" stroke-dashoffset="70" style="animation:draw .6s .35s ease forwards"/>
+        </svg>
+        <h3 class="font-display font-black text-2xl sm:text-3xl mt-5">وصلنا طلبك <span class="gold-text">بإذن الله</span></h3>
+        <p id="success-msg" class="text-white/75 mt-3 leading-relaxed"></p>
+        <div class="glass rounded-2xl p-4 mt-6 text-sm text-white/70 text-start space-y-1" id="success-summary"></div>
+        <button type="button" id="success-close" class="btn btn-ghost w-full mt-6">إغلاق</button>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<script>
+/* ============================================================
+   MUQRI CONFIG
+   - leadEndpoint: your server-side relay (see worker.js). The WhatsApp
+     token never lives in the browser.
+   - reviews: fill with REAL verified data to show the rating badge.
+   ============================================================ */
+const MUQRI = {
+  leadEndpoint: '/api/lead',
+  reviews: { count: 0, average: 0 },
+  requestTimeoutMs: 15000
+};
+
+(() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const toEn = s => s.replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
+
+  $('#year').textContent = new Date().getFullYear().toLocaleString('ar-SA', { useGrouping: false });
+
+  /* Nav background on scroll + sticky CTA */
+  const nav = $('#nav'), sticky = $('#sticky-cta');
+  const onScroll = () => {
+    const y = scrollY;
+    nav.classList.toggle('bg-ink/85', y > 20);
+    nav.classList.toggle('backdrop-blur-xl', y > 20);
+    nav.classList.toggle('border-b', y > 20);
+    nav.classList.toggle('border-white/10', y > 20);
+    sticky.classList.toggle('translate-y-full', y < 500);
+  };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  /* Reveal on scroll */
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+    $$('.reveal').forEach(el => io.observe(el));
+  } else $$('.reveal').forEach(el => el.classList.add('in'));
+
+  /* Rating badge: shown only when real data is configured */
+  if (MUQRI.reviews.count > 0 && MUQRI.reviews.average > 0) {
+    const b = $('#rating-badge');
+    b.classList.remove('hidden'); b.classList.add('flex');
+    const avg = MUQRI.reviews.average.toLocaleString('ar-SA', { maximumFractionDigits: 1 });
+    const cnt = MUQRI.reviews.count.toLocaleString('ar-SA');
+    b.innerHTML = '<span class="text-gold text-lg tracking-widest" aria-hidden="true">★★★★★</span><span><b class="text-white">' + avg + '</b> من ٥ · ' + cnt + ' تقييم موثّق</span>';
+  }
+
+  /* FAQ accordion */
+  $$('.faq-item').forEach(item => {
+    const btn = $('button', item);
+    btn.addEventListener('click', () => {
+      const open = item.dataset.open === 'true';
+      $$('.faq-item').forEach(o => { o.dataset.open = 'false'; $('button', o).setAttribute('aria-expanded', 'false'); });
+      item.dataset.open = String(!open);
+      btn.setAttribute('aria-expanded', String(!open));
+    });
+  });
+
+  /* Booking dialog */
+  const dlg = $('#booking'), form = $('#booking-form'), success = $('#success');
+  const errBox = $('#form-error'), submitBtn = $('#submit-btn');
+  const tz = (() => { try { return Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'; } catch { return 'UTC'; } })();
+  $('#f-tz').value = tz;
+
+  const setStudent = v => {
+    const r = $(`input[name="student"][value="${v}"]`); if (r) r.checked = true;
+    $('#age-wrap').classList.toggle('hidden', v !== 'طفل');
+    if (v === 'طفل') $('#f-program').value = 'تأسيس الأطفال';
+  };
+  $$('input[name="student"]').forEach(r => r.addEventListener('change', () => setStudent(r.value)));
+
+  const openBooking = (offer, student) => {
+    form.classList.remove('hidden'); success.classList.add('hidden'); errBox.classList.add('hidden');
+    if (offer) { const r = $(`input[name="offer"][value="${offer === 'cashback' ? 'كاش باك 80%' : '3 حصص مجانية'}"]`); if (r) r.checked = true; }
+    setStudent(student || 'نفسي');
+    if (!dlg.open) dlg.showModal();
+    document.documentElement.style.overflow = 'hidden';
+    setTimeout(() => $('#f-name').focus({ preventScroll: true }), 350);
+  };
+  const closeBooking = () => { dlg.close(); };
+  dlg.addEventListener('close', () => { document.documentElement.style.overflow = ''; });
+  dlg.addEventListener('click', e => { if (!$('.sheet', dlg).contains(e.target)) closeBooking(); });
+  $('#booking-close').addEventListener('click', closeBooking);
+  $('#success-close').addEventListener('click', closeBooking);
+  $$('[data-open-booking]').forEach(b => b.addEventListener('click', () => openBooking(b.dataset.offer, b.dataset.student)));
+
+  /* Phone normalisation (Saudi-first, international supported) */
+  const normalisePhone = raw => {
+    let p = toEn(raw).replace(/[\s\-().]/g, '');
+    if (p.startsWith('00')) p = '+' + p.slice(2);
+    if (/^05\d{8}$/.test(p)) return '+966' + p.slice(1);
+    if (/^5\d{8}$/.test(p)) return '+966' + p;
+    if (/^966\d{9}$/.test(p)) return '+' + p;
+    if (/^\+\d{8,15}$/.test(p)) return p;
+    return null;
+  };
+
+  const setErr = (k, msg) => {
+    const el = $(`[data-err="${k}"]`); if (el) el.textContent = msg || '';
+    const f = form.elements[k]; if (f && f.setAttribute) f.setAttribute('aria-invalid', msg ? 'true' : 'false');
+  };
+
+  const validate = () => {
+    let ok = true;
+    ['name', 'phone', 'age', 'consent'].forEach(k => setErr(k, ''));
+    const name = form.name.value.trim();
+    if (name.length < 3) { setErr('name', 'يرجى كتابة الاسم الكامل'); ok = false; }
+    const phone = normalisePhone(form.phone.value);
+    if (!phone) { setErr('phone', 'أدخل رقماً صحيحاً مثل 05xxxxxxxx'); ok = false; }
+    if (form.student.value === 'طفل') {
+      const a = parseInt(toEn(form.age.value), 10);
+      if (!(a >= 4 && a <= 18)) { setErr('age', 'أدخل عمراً بين ٤ و١٨'); ok = false; }
+    }
+    if (!form.consent.checked) { setErr('consent', 'نحتاج موافقتك للتواصل معك'); ok = false; }
+    if (!ok) { const bad = $('[aria-invalid="true"]', form) || $('.err:not(:empty)', form); if (bad && bad.focus) bad.focus(); }
+    return ok ? { name, phone } : null;
+  };
+
+  const setLoading = on => {
+    submitBtn.disabled = on;
+    submitBtn.style.opacity = on ? '.85' : '';
+    $('#submit-label').textContent = on ? 'جارٍ الإرسال...' : 'أرسل طلب الحجز';
+    $('#submit-spin').classList.toggle('hidden', !on);
+  };
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (submitBtn.disabled) return;
+    errBox.classList.add('hidden');
+    const v = validate(); if (!v) return;
+
+    const payload = {
+      name: v.name,
+      phone: v.phone,
+      offer: form.offer.value,
+      student: form.student.value,
+      age: form.student.value === 'طفل' ? parseInt(toEn(form.age.value), 10) : null,
+      program: form.program.value,
+      time: form.time.value,
+      tz,
+      website: form.website.value,
+      page: location.href.split('#')[0]
+    };
+
+    setLoading(true);
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), MUQRI.requestTimeoutMs);
+    try {
+      const res = await fetch(MUQRI.leadEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        signal: ctrl.signal
+      });
+      if (!res.ok) throw new Error('http ' + res.status);
+      showSuccess(payload);
+    } catch (err) {
+      errBox.textContent = err.name === 'AbortError'
+        ? 'استغرق الإرسال وقتاً أطول من المعتاد. تحقق من اتصالك وحاول مرة أخرى.'
+        : 'تعذّر إرسال الطلب الآن. لم تُفقد بياناتك، حاول مرة أخرى بعد لحظات.';
+      errBox.classList.remove('hidden');
+      errBox.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    } finally {
+      clearTimeout(t); setLoading(false);
+    }
+  });
+
+  const showSuccess = p => {
+    form.classList.add('hidden');
+    $('#success-msg').textContent = 'سيتواصل معك فريقنا عبر واتساب على الرقم ' + p.phone.replace(/^\+/, '') + ' لتأكيد موعد حصتك.';
+    const rows = [['العرض', p.offer], ['البرنامج', p.program], ['الفترة', p.time]];
+    const box = $('#success-summary'); box.textContent = '';
+    rows.forEach(([k, val]) => {
+      const d = document.createElement('div'); d.className = 'flex justify-between gap-4';
+      const a = document.createElement('span'); a.textContent = k;
+      const b = document.createElement('b'); b.className = 'text-white'; b.textContent = val;
+      d.append(a, b); box.append(d);
+    });
+    success.classList.remove('hidden');
+    form.reset(); $('#f-tz').value = tz;
+    $('.sheet', dlg).scrollTo({ top: 0, behavior: 'smooth' });
+  };
+})();
+</script>
+</body>
+</html>
